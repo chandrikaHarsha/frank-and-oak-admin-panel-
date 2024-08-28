@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { RiFacebookFill } from "react-icons/ri";
 import { CiInstagram } from "react-icons/ci";
 import { FaYoutube } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 function Profile() {
+  const [show, setShow] = useState(false);
   return (
     <div>
       <div className="w-[90%] mx-auto mt-[140px] mb-[20px] bg-white border rounded-[10px]">
@@ -69,6 +72,11 @@ function Profile() {
                 <div className="w-[50px] h-[50px] object-fill">
                   <img src="/logo.png" alt="Logo" className="w-full h-full" />
                 </div>
+                <input
+                  type="file"
+                  name="logo"
+                  className="input border w-full m-[10px_0] category"
+                />
               </div>
               <div className="w-full my-[20px]">
                 <span className="block m-[15px_0]">Sub Logo</span>
@@ -79,14 +87,40 @@ function Profile() {
                     className="w-full h-full"
                   />
                 </div>
+                <input
+                  type="file"
+                  name="favicon"
+                  className="input border w-full m-[10px_0] category"
+                />
               </div>
               <div className="w-full my-[20px]">
+                <span className="block m-[15px_0]">Footer Logo</span>
+                <div className="w-[50px] h-[50px] object-fill">
+                  <img
+                    src="/favicon.ico"
+                    alt="Logo"
+                    className="w-full h-full"
+                  />
+                </div>
+                <input
+                  type="file"
+                  name="footer_icon"
+                  className="input border w-full m-[10px_0] category"
+                />
+              </div>
+              <div className="w-full my-[20px] relative ">
                 <span className="block m-[15px_0]">Password</span>
                 <input
-                  type="password"
+                  type={show === false ? "password" : "text"}
                   defaultValue="test@4321"
                   className="w-full border h-[35px] rounded-[5px] p-2 input"
                 />
+                <span
+                  onClick={() => setShow(!show)}
+                  className="absolute right-[20px] bottom-[10px] cursor-pointer text-[#303640]"
+                >
+                  {show === false ? <FaEye /> : <FaEyeSlash />}
+                </span>
               </div>
               <button className="w-[150px] h-[40px] rounded-md text-white bg-[#5351c9] my-[30px]">
                 Update
@@ -107,28 +141,28 @@ function Profile() {
       </div>
       <div className="mb-[80px] w-[90%] mx-auto border rounded-[10px]">
         <span className="block text-[#303640] bg-[#f8f8f9] rounded-[10px_10px_0_0] h-[60px] p-[15px_15px] box-border font-bold text-[25px] border-b">
-          Email Authentication
+          Update Email
         </span>
         <div className="w-full p-[30px]">
           <form>
             <div className="w-full mb-[10px]">
-              <span className="block m-[15px_0]">Email</span>
+              <span className="block m-[15px_0]">Current Email</span>
               <input
                 type="email"
                 defaultValue="test@gmail.com"
                 className="w-full border h-[35px] rounded-[5px] p-2 input"
               />
             </div>
-            <div className="w-full mb-[10px]">
+            {/* <div className="w-full mb-[10px]">
               <span className="block m-[15px_0]">OTP</span>
               <input
                 type="text"
                 className="w-full border h-[35px] rounded-[5px] p-2 input"
                 readOnly
               />
-            </div>
+            </div> */}
             <button className="w-[150px] h-[40px] rounded-md text-white bg-[#5351c9] my-[30px]">
-              Update Email
+              Generate OTP
             </button>
           </form>
         </div>

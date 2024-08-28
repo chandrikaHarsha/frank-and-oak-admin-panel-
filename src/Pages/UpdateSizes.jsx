@@ -9,16 +9,28 @@ const UpdateSizes = () => {
       <div className="w-[95%] mx-auto my-[20px]">
         <form>
           <div>
-            <label htmlFor="size" className="block">
+            <label htmlFor="size" className="block text-[#252b36f2]">
               Size Name
             </label>
             <input
               type="text"
               id="size"
-              name="size"
+              name="updated_size"
               placeholder="Size Name"
               className="input p-2 border my-[20px] w-full rounded-[5px]"
             />
+            <div className="w-full my-[10px] ">
+              <label htmlFor="size" className="text-[#252b36f2] block">
+                Size Order
+              </label>
+              <input
+                type="text"
+                name="size"
+                id="updated_size_order"
+                placeholder="Size Order"
+                className="w-full input rounded-[5px] p-2 border my-[10px]"
+              />
+            </div>
           </div>
           <div className="w-full my-[10px]">
             <label htmlFor="status" className="mr-[20px]">

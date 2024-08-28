@@ -20,6 +20,18 @@ const AddSizes = () => {
           />
         </div>
         <div className="w-full p-[8px_16px] my-[10px] ">
+          <label htmlFor="size" className="text-[#252b36f2]">
+            Size Order
+          </label>
+          <input
+            type="text"
+            name="size"
+            id="size_order"
+            placeholder="Size Order"
+            className="w-full input rounded-[5px] p-2 border my-[10px]"
+          />
+        </div>
+        <div className="w-full p-[8px_16px] my-[10px] ">
           <label htmlFor="size" className="text-[#252b36f2] mr-[30px]">
             Display
           </label>

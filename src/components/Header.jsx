@@ -1,16 +1,17 @@
 import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 // import { RxHamburgerMenu } from "react-icons/rx";
 import {
-  IoMailOpenOutline,
+  // IoMailOpenOutline,
   IoMenuOutline,
-  IoDocumentOutline,
+  // IoDocumentOutline,
 } from "react-icons/io5";
 import { NavToggle } from "../Context/Context";
-import { GoBell } from "react-icons/go";
-import { GoChecklist } from "react-icons/go";
+// import { GoBell } from "react-icons/go";
+// import { GoChecklist } from "react-icons/go";
 import { SlUser } from "react-icons/sl";
-import { RxGear } from "react-icons/rx";
-import { MdOutlinePayment } from "react-icons/md";
+// import { RxGear } from "react-icons/rx";
+// import { MdOutlinePayment } from "react-icons/md";
 import { CiChat1, CiLock } from "react-icons/ci";
 function Header() {
   let { navVisible, setNavVisibility } = useContext(NavToggle);
@@ -27,7 +28,7 @@ function Header() {
     >
       <span className="my-[5px] text-[25px] w-[200px]  flex gap-[20px]">
         <IoMenuOutline
-          className="cursor-pointer toggle"
+          className="cursor-pointer"
           onClick={() => {
             setNavVisibility(!navVisible);
             setWidth(!width);
@@ -55,7 +56,7 @@ function Header() {
               : "w-[180px] absolute top-[45px] -z-50 rounded-[5px] bg-white border right-[0px] profileBox"
           }
         >
-          <ul className="list-none w-full ">
+          {/* <ul className="list-none w-full ">
             <span className="block bg-[#f8f8f9] text-[#6d7d9c] text-[14px] font-semibold border-b rounded-[10px_10px_0_0] p-[8px_16px]">
               Account
             </span>
@@ -95,18 +96,20 @@ function Header() {
                 80
               </span>
             </li>
-          </ul>
+          </ul> */}
           <ul className="list-none w-full ">
-            <span className="block bg-[#f8f8f9] text-[#6d7d9c] text-[14px] font-semibold border-b rounded-[10px_10px_0_0] p-[8px_16px]">
+            {/* <span className="block bg-[#f8f8f9] text-[#6d7d9c] text-[14px] font-semibold border-b rounded-[10px_10px_0_0] p-[8px_16px]">
               Settings
-            </span>
-            <li className="w-full grid grid-cols-[20px_auto] box-border gap-[10px] p-[5px] hover:bg-[#f8f8f9]">
-              <span className="p-[7px_1px]">
-                <SlUser />{" "}
-              </span>
-              <span>Profile</span>
-            </li>
-            <li className="w-full grid grid-cols-[20px_auto_30px] box-border gap-[10px] p-[5px] hover:bg-[#f8f8f9]">
+            </span> */}
+            <Link to="/dashboard/profile">
+              <li className="w-full grid grid-cols-[20px_auto] box-border gap-[10px] p-[5px] hover:bg-[#f8f8f9]">
+                <span className="p-[7px_1px]">
+                  <SlUser />{" "}
+                </span>
+                <span>Profile</span>
+              </li>
+            </Link>
+            {/* <li className="w-full grid grid-cols-[20px_auto_30px] box-border gap-[10px] p-[5px] hover:bg-[#f8f8f9]">
               <span className="p-[7px_1px]">
                 <RxGear />{" "}
               </span>
@@ -129,13 +132,15 @@ function Header() {
               <span className="w-[30px] rounded-md text-white bg-purple-700 p-[2px_7px]">
                 10
               </span>
-            </li>
-            <li className="w-full box-border grid grid-cols-[30px_auto] gap-[10px] p-[5px] hover:bg-[#f8f8f9]">
-              <span className="p-[7px_1px]">
-                <CiLock />{" "}
-              </span>
-              <span>Lock Account</span>
-            </li>
+            </li> */}
+            <Link to="/login">
+              <li className="w-full box-border grid grid-cols-[30px_auto] gap-[10px] p-[5px] hover:bg-[#f8f8f9]">
+                <span className="p-[7px_1px]">
+                  <CiLock />{" "}
+                </span>
+                <span>Lock Account</span>
+              </li>
+            </Link>
           </ul>
         </div>
       </span>

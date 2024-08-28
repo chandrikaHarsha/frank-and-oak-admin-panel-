@@ -23,6 +23,7 @@ const ViewSizes = () => {
               </th>
               <th>Sno</th>
               <th>Size Name</th>
+              <th>Size Order</th>
               <th>Action</th>
               <th>Status</th>
             </tr>
@@ -38,6 +39,7 @@ const ViewSizes = () => {
               </td>
               <td>1</td>
               <td>S</td>
+              <td>1</td>
               <td className="flex gap-[5px]">
                 <MdDelete className="my-[5px] text-red-500 cursor-pointer" /> |{" "}
                 <Link to="/dashboard/sizes/update-size">
