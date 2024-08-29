@@ -79,11 +79,11 @@ function Profile() {
                 />
               </div>
               <div className="w-full my-[20px]">
-                <span className="block m-[15px_0]">Sub Logo</span>
+                <span className="block m-[15px_0]">Fav Icon</span>
                 <div className="w-[50px] h-[50px] object-fill">
                   <img
                     src="/favicon.ico"
-                    alt="Logo"
+                    alt="favicon"
                     className="w-full h-full"
                   />
                 </div>
