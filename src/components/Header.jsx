@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 // import { RxHamburgerMenu } from "react-icons/rx";
 import {
   // IoMailOpenOutline,
@@ -13,11 +13,21 @@ import { SlUser } from "react-icons/sl";
 // import { RxGear } from "react-icons/rx";
 // import { MdOutlinePayment } from "react-icons/md";
 import { CiChat1, CiLock } from "react-icons/ci";
+import Cookies from "js-cookie";
 function Header() {
   let { navVisible, setNavVisibility } = useContext(NavToggle);
   let [width, setWidth] = useState(false);
   let [profileDropDown, setProfileDropDown] = useState(false);
   // console.log(navVisible);
+
+  const navigate = useNavigate();
+  const ifLoggedIn = () => {
+    const check = Cookies.get("admin");
+    if (!check) navigate("/login");
+  };
+  useEffect(() => {
+    ifLoggedIn();
+  }, []);
   return (
     <div
       className={
