@@ -18,6 +18,7 @@ import { NavToggle } from "../Context/Context";
 
 function DashboardSideNav() {
   let [size, setSize] = useState(false);
+  let [color, setColor] = useState(false);
   let [category, setCategory] = useState(false);
   let [productCategory, setProductCategory] = useState(false);
   let [product, setProduct] = useState(false);
@@ -49,14 +50,14 @@ function DashboardSideNav() {
           </li>
         </Link>
 
-        <Link to={"/dashboard/colors"}>
+        {/* <Link to={"/dashboard/colors"}>
           <li className="w-full grid grid-cols-[20%_auto] px-[12px] py-[10px] hover:text-white rounded-[5px] hover:bg-[#2a303d] cursor-pointer mb-[5px] box-border">
             <span className="icon">
               <CiDroplet className="w-full my-[5px]" />
             </span>
             <span className="w-full px-2 ">Colors</span>
           </li>
-        </Link>
+        </Link> */}
         <Link to={"/dashboard/profile"}>
           <li className="w-full grid grid-cols-[20%_auto] px-[12px] py-[10px] rounded-[5px] hover:text-white hover:bg-[#2a303d] cursor-pointer mb-[5px] box-border">
             <span className="icon">
@@ -96,6 +97,38 @@ function DashboardSideNav() {
                 <li className="w-full grid grid-cols-[20%_auto]  hover:bg-[#2a303d] rounded-[5px] my-[5px] p-[10px]">
                   <FaRegCircle className="text-[#ffffff6a] w-full  mt-[5px] p-1 text-[14px]" />
                   <span>View Sizes</span>
+                </li>
+              </Link>
+            </ul>
+          )}
+        </li>
+        <li
+          className="w-full grid grid-cols-[20%_auto_10%] px-[12px] py-[10px] rounded-[5px] hover:bg-[#2a303d] cursor-pointer mb-[5px] box-border"
+          onClick={() => setColor(!color)}
+        >
+          <span className="icon">
+            <CiDroplet className="text-[#ffffff6a] w-full my-[5px]" />
+          </span>
+          <span className="w-full px-2">Color</span>
+          {color === false ? (
+            <IoIosArrowDown className="m-1 text-[#ffffff6a]" />
+          ) : (
+            <IoIosArrowUp className="m-1 text-[#ffffff6a]" />
+          )}
+          {color === false ? (
+            ""
+          ) : (
+            <ul className="w-[230px] ">
+              <Link to="/dashboard/color/add-colors">
+                <li className="w-full grid grid-cols-[20%_auto]  hover:bg-[#2a303d] rounded-[5px] my-[5px]  p-[10px]">
+                  <FaRegCircle className="text-[#ffffff6a] w-full mt-[5px] p-1 text-[14px]" />
+                  <span>Add Color</span>
+                </li>
+              </Link>
+              <Link to="/dashboard/color/view-colors">
+                <li className="w-full grid grid-cols-[20%_auto]  hover:bg-[#2a303d] rounded-[5px] my-[5px] p-[10px]">
+                  <FaRegCircle className="text-[#ffffff6a] w-full  mt-[5px] p-1 text-[14px]" />
+                  <span>View Color</span>
                 </li>
               </Link>
             </ul>

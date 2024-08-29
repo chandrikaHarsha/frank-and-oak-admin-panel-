@@ -23,7 +23,7 @@ const ViewCategory = () => {
                   type="checkbox"
                   name="deleteAll"
                   id="deleteAllCat"
-                  className="accent-[#5351c9]"
+                  className="accent-[#5351c9] cursor-pointer"
                 />
               </th>
               <th>Sno</th>

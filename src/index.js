@@ -36,6 +36,8 @@ import AddSlider from "./Pages/AddSlider";
 import UpdateSlider from "./Pages/UpdateSlider";
 import ViewSlider from "./Pages/ViewSlider";
 import ForgotPassword from "./Pages/ForgotPassword";
+import ViewColor from "./Pages/ViewColor";
+import UpdateColor from "./Pages/UpdateColor";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const routes = createBrowserRouter(
   createRoutesFromElements([
@@ -43,7 +45,9 @@ const routes = createBrowserRouter(
     <Route path="/reset-password" element={<ForgotPassword />} />,
     <Route path="/dashboard" element={<Layout />}>
       <Route path="" element={<Home />} />
-      <Route path="/dashboard/colors" element={<Color />} />
+      <Route path="/dashboard/color/add-colors" element={<Color />} />
+      <Route path="/dashboard/color/view-colors" element={<ViewColor />} />
+      <Route path="/dashboard/color/update-colors" element={<UpdateColor />} />
       <Route path="/dashboard/profile" element={<Profile />} />
       <Route path="/dashboard/size/add-sizes" element={<AddSizes />} />
       <Route path="/dashboard/size/view-sizes" element={<ViewSizes />} />
