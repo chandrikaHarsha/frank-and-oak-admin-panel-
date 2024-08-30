@@ -15,7 +15,7 @@ function App() {
         userInput
       );
       if (response.status === 200) {
-        Cookies.set("admin", JSON.stringify(response.data.data));
+        Cookies.set("admin", JSON.stringify(response.data.data), { expires: 7 });
       }
       navigate("/dashboard");
     } catch (error) {

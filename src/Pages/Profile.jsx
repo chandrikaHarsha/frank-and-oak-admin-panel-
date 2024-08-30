@@ -1,12 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { RiFacebookFill } from "react-icons/ri";
 import { CiInstagram } from "react-icons/ci";
 import { FaYoutube } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import { NavToggle } from "../Context/Context";
+import axios from "axios";
 function Profile() {
   const [show, setShow] = useState(false);
+  const [ifOtp, setIfOtp] = useState(false);
+  const [timer, setTimer] = useState("Generate OTP");
+  let { cookieData, setCookieData } = useContext(NavToggle);
+  const handleAdminData = () => {
+    console.log("profile", cookieData);
+  };
+
+  const handleGenerateOTP = async () => {
+    setIfOtp(true);
+    let timer = 30;
+    let interval = setInterval(() => {
+      --timer;
+      setTimer(`Regenerate OTP After ${timer}s`);
+      if (timer <= 0) {
+        clearInterval(interval);
+        setTimer("Generate OTP");
+        setIfOtp(false);
+      }
+    }, 1000);
+
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/api/admin-panel/admin/generate-otp",
+        cookieData
+      );
+      if (response.status !== 200) {
+        return alert("Something went wrong.");
+      }
+      alert("OTP has sent on your email.");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    handleAdminData();
+  }, [cookieData]);
+
   return (
     <div>
       <div className="w-[90%] mx-auto mt-[140px] mb-[20px] bg-white border rounded-[10px]">
@@ -15,7 +55,7 @@ function Profile() {
         </span>
         <div className="w-full grid grid-cols-[2fr_2fr]">
           <div className="p-[10px]">
-            <form>
+            <form method="post">
               <div className="w-full ">
                 <span className="block m-[15px_0]">Name</span>
                 <input
@@ -144,25 +184,47 @@ function Profile() {
           Update Email
         </span>
         <div className="w-full p-[30px]">
-          <form>
+          <form method="post">
             <div className="w-full mb-[10px]">
               <span className="block m-[15px_0]">Current Email</span>
               <input
                 type="email"
-                defaultValue="test@gmail.com"
+                defaultValue={cookieData.email}
+                onChange={(e) =>
+                  setCookieData({ ...cookieData, email: e.target.value })
+                }
                 className="w-full border h-[35px] rounded-[5px] p-2 input"
               />
             </div>
-            {/* <div className="w-full mb-[10px]">
+            <div className={ifOtp === false ? "hidden" : "w-full mb-[10px]"}>
               <span className="block m-[15px_0]">OTP</span>
               <input
                 type="text"
                 className="w-full border h-[35px] rounded-[5px] p-2 input"
-                readOnly
               />
-            </div> */}
-            <button className="w-[150px] h-[40px] rounded-md text-white bg-[#5351c9] my-[30px]">
-              Generate OTP
+            </div>
+            <button
+              type="button"
+              disabled={ifOtp}
+              onClick={handleGenerateOTP}
+              className={`w-[200px] h-[40px] rounded-md text-white ${
+                ifOtp === true
+                  ? "bg-slate-500 cursor-not-allowed"
+                  : "bg-[#5351c9]"
+              } my-[30px] mr-[50px]`}
+            >
+              {timer}
+            </button>
+
+            <button
+              type="button"
+              className={
+                ifOtp
+                  ? "w-[200px] h-[40px] rounded-md text-white bg-[#5351c9] my-[30px]"
+                  : "hidden"
+              }
+            >
+              Update Email
             </button>
           </form>
         </div>
