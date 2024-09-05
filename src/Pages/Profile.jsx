@@ -10,6 +10,7 @@ import { ImPinterest2 } from "react-icons/im";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { AiFillLinkedin } from "react-icons/ai";
 function Profile() {
   const [show, setShow] = useState(false);
   const [ifOtp, setIfOtp] = useState(false);
@@ -17,7 +18,7 @@ function Profile() {
   let { cookieData, setCookieData } = useContext(NavToggle);
   const [imgPreview, setImgPreview] = useState({});
   let navigate = useNavigate();
-  console.log(cookieData);
+  // console.log(cookieData);
 
   // const handleAdminData = () => {
   //   console.log("profile", cookieData);
@@ -75,7 +76,7 @@ function Profile() {
     reader.onload = function () {
       fileUrl = this.result;
       setImgPreview({ ...imgPreview, [name]: fileUrl });
-      setCookieData({ ...cookieData, ...imgPreview });
+      // setCookieData({ ...cookieData, [name]: e.target.files[0].name });
 
       // console.log("name: ", name, "result: ",e.target.result);
     };
@@ -85,34 +86,43 @@ function Profile() {
   //   handleAdminData();
   //   updateEmail();
   // }, [cookieData]);
-  const handleProfileInput = (e) => {
-    let fileUrl;
-    const fileInput = document.createElement("input");
-    fileInput.type = "file";
-    fileInput.name = "profileImg";
-    fileInput.click();
-    const reader = new FileReader();
-    fileInput.addEventListener("change", (e) => {
-      reader.onload = function () {
-        fileUrl = this.result;
-        setImgPreview({ ...imgPreview, profileImg: fileUrl });
-        setCookieData({ ...cookieData, ...imgPreview });
-      };
-      reader.readAsDataURL(e.target.files[0]);
-    });
-  };
-  const handleProfileUpdate = async () => {
-    try {
-      const response = await axios.put(
+  // const handleProfileInput = (e) => {
+  //   let fileUrl;
+  //   // const fileInput = document.createElement("input");
+  //   // fileInput.type = "file";
+  //   // fileInput.name = "profileImg";
+  //   // fileInput.id = "profile";
+  //   // fileInput.click();
+  //   const reader = new FileReader();
+  //   fileInput.addEventListener("change", (e) => {
+  //     // let name = e.target.name;
+  //     // let file = e.target.files[0].name;
+  //     reader.onload = function () {
+  //       fileUrl = this.result;
+  //       setImgPreview({ ...imgPreview, profileImg: fileUrl });
+  //     };
+  //     reader.readAsDataURL(e.target.files[0]);
+  //   });
+  // };
+  const handleProfileUpdate = async (e) => {
+    e.preventDefault();
+    const data = e.target;
+    await axios
+      .put(
         `http://localhost:4000/api/admin-panel/admin/update-admin-profile/${cookieData._id}`,
-        cookieData
-      );
-      if (response !== 200) return alert("something went wrong");
-      alert('updated.')
-    } catch (error) {
-      alert('Error occurred')
-      console.log(error);
-    }
+        data
+      )
+      .then((res) => {
+        console.log(res);
+        if (res.status !== 200) return alert("Something is not OK");
+        alert("Successfully Updated. Please Login Again");
+        Cookies.remove("admin");
+        navigate("/login");
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("Error");
+      });
   };
   return (
     <div>
@@ -120,17 +130,14 @@ function Profile() {
         <span className="block text-[#303640] bg-[#f8f8f9] rounded-[10px_10px_0_0] h-[60px] p-[15px_15px] box-border font-bold text-[25px] border-b">
           Profile
         </span>
-        <div className="w-full grid grid-cols-[2fr_2fr]">
-          <div className="p-[10px]">
-            <form onSubmit={handleProfileUpdate}>
+        <form method="post" onSubmit={handleProfileUpdate}>
+          <div className="w-full grid grid-cols-[2fr_2fr]">
+            <div className="p-[10px]">
               <div className="w-full ">
                 <span className="block m-[15px_0]">Name</span>
                 <input
                   type="text"
                   name="name"
-                  onChange={(e) =>
-                    setCookieData({ ...cookieData, name: e.target.value })
-                  }
                   className="w-full border h-[35px] rounded-[5px] p-2 input"
                 />
               </div>
@@ -143,9 +150,6 @@ function Profile() {
                   <input
                     type="text"
                     name="fb"
-                    onChange={(e) =>
-                      setCookieData({ ...cookieData, fb: e.target.value })
-                    }
                     className="w-full border h-[35px] rounded-[5px] p-2 input"
                   />
                 </div>
@@ -156,12 +160,16 @@ function Profile() {
                   <input
                     type="text"
                     name="instagram"
-                    onChange={(e) =>
-                      setCookieData({
-                        ...cookieData,
-                        instagram: e.target.value,
-                      })
-                    }
+                    className="w-full border h-[35px] rounded-[5px] p-2 input"
+                  />
+                </div>
+                <div className="w-full grid grid-cols-[10%_auto] mb-[10px]">
+                  <span className="w-full h-full text-[20px] p-[8px]">
+                    <AiFillLinkedin />
+                  </span>
+                  <input
+                    type="text"
+                    name="LinkedIn"
                     className="w-full border h-[35px] rounded-[5px] p-2 input"
                   />
                 </div>
@@ -172,9 +180,6 @@ function Profile() {
                   <input
                     type="text"
                     name="youtube"
-                    onChange={(e) =>
-                      setCookieData({ ...cookieData, youtube: e.target.value })
-                    }
                     className="w-full border h-[35px] rounded-[5px] p-2 input"
                   />
                 </div>
@@ -185,9 +190,6 @@ function Profile() {
                   <input
                     type="text"
                     name="twitter"
-                    onChange={(e) =>
-                      setCookieData({ ...cookieData, twitter: e.target.value })
-                    }
                     className="w-full border h-[35px] rounded-[5px] p-2 input"
                   />
                 </div>
@@ -198,9 +200,6 @@ function Profile() {
                   <input
                     type="text"
                     name="pinterest"
-                    onChange={(e) =>
-                      setCookieData({ ...cookieData, twitter: e.target.value })
-                    }
                     className="w-full border h-[35px] rounded-[5px] p-2 input"
                   />
                 </div>
@@ -273,24 +272,29 @@ function Profile() {
               <button className="w-[150px] h-[40px] rounded-md text-white bg-[#5351c9] my-[30px]">
                 Update
               </button>
-            </form>
-          </div>
-          <div className="flex flex-col justify-center p-[10px] box-border items-center gap-[10px] h-[400px]">
-            <div className="border border-slate-300 w-[200px] h-[200px] rounded-[50%] object-contain">
-              <img
-                src={
-                  imgPreview.profileImg === undefined
-                    ? "/profile.jpg"
-                    : `${imgPreview.profileImg}`
-                }
-                alt="profile img"
-                className="w-full h-full rounded-[50%] cursor-pointer"
-                onClick={handleProfileInput}
+            </div>
+            <div className="flex flex-col justify-center p-[10px] box-border items-center gap-[10px] h-[400px]">
+              <div className="border border-slate-300 w-[200px] h-[200px] rounded-[50%] object-contain">
+                <img
+                  src={
+                    imgPreview.profile === undefined
+                      ? "/profile.jpg"
+                      : `${imgPreview.profile}`
+                  }
+                  alt="profile img"
+                  className="w-full h-full rounded-[50%] cursor-pointer"
+                />
+              </div>
+              <span className="block text-center">Profile Image</span>
+              <input
+                type="file"
+                name="profile"
+                onChange={handleImagePreview}
+                className="input border w-full m-[10px_0] category"
               />
             </div>
-            <span className="block text-center">Profile Image</span>
           </div>
-        </div>
+        </form>
       </div>
       <div className="mb-[80px] w-[90%] mx-auto border rounded-[10px]">
         <span className="block text-[#303640] bg-[#f8f8f9] rounded-[10px_10px_0_0] h-[60px] p-[15px_15px] box-border font-bold text-[25px] border-b">
