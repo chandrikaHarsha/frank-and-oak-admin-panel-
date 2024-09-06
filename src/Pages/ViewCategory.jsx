@@ -43,6 +43,24 @@ const ViewCategory = () => {
         alert("Error Occurred.");
       });
   };
+  const handleDelete = async (_id) => {
+    await axios
+      .delete(
+        `http://localhost:4000/api/admin-panel/parent-category/delete-parent-category/${_id}`
+      )
+      .then((res) => {
+        // console.log(res);
+        alert("deleted successfully.");
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("Error Occurred.");
+      });
+    const updatedCategory = [...categories];
+    const index = categories.findIndex((v) => v._id === _id);
+    updatedCategory.splice(index, 1);
+    setCategories(updatedCategory);
+  };
   useEffect(() => {
     handleCategoryDataFetchOp();
   }, []);
@@ -91,7 +109,10 @@ const ViewCategory = () => {
                         {v.description}
                       </td>
                       <td>
-                        <MdDelete className="my-[5px] text-red-500 cursor-pointer inline" />{" "}
+                        <MdDelete
+                          className="my-[5px] text-red-500 cursor-pointer inline"
+                          onClick={(e) => handleDelete(v._id)}
+                        />{" "}
                         |{" "}
                         <Link
                           to={`/dashboard/category/update-category/${v._id}`}

@@ -24,15 +24,33 @@ const UpdateCategory = () => {
   };
   useEffect(() => {
     handleCategoryFetch();
+    // console.log(process.env.REACT_APP_SAMPLE, NODE_ENV);
   }, []);
 
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    await axios
+      .put(
+        `http://localhost:4000/api/admin-panel/parent-category/update-parent-category/${_id}`,
+        category
+      )
+      .then((res) => {
+        console.log(res);
+        alert("updated successfully.");
+        navigate("/dashboard/category/view-category");
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("Error Occurred.");
+      });
+  };
   return (
     <div className="w-[90%] mx-auto my-[150px] bg-white border rounded-[10px]">
       <span className="bg-[#f8f8f9] rounded-[10px_10px_0_0] border-b p-[8px_16px] text-[20px] font-bold block text-[#303640]">
         Update Category
       </span>
       <div className="w-[90%] mx-auto my-[20px]">
-        <form>
+        <form method="post" onSubmit={handleUpdate}>
           <div className="w-full my-[10px]">
             <label htmlFor="categoryName" className="block text-[#303640]">
               Category Name
@@ -41,6 +59,9 @@ const UpdateCategory = () => {
               type="text"
               name="name"
               id="categoryName"
+              onChange={(e) =>
+                setCategory({ ...category, name: e.target.value })
+              }
               value={category.name}
               placeholder="Category Name"
               className="input border p-1 w-full rounded-[5px] my-[10px]"
@@ -52,6 +73,9 @@ const UpdateCategory = () => {
             <textarea
               name="description"
               value={category.description}
+              onChange={(e) =>
+                setCategory({ ...category, description: e.target.value })
+              }
               className="input border w-full rounded-[5px] my-[10px] p-2"
               placeholder="Description"
             />
