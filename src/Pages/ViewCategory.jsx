@@ -1,13 +1,51 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 const ViewCategory = () => {
-  let [show1, setShow1] = useState(false);
-  let [show2, setShow2] = useState(false);
-  let [show3, setShow3] = useState(false);
-  let [show4, setShow4] = useState(false);
+  const [categories, setCategories] = useState([]);
+
+  const handleCategoryDataFetchOp = async () => {
+    await axios
+      .get(
+        "http://localhost:4000/api/admin-panel/parent-category/read-parent-category"
+      )
+      .then((res) => {
+        // console.log(res);
+        setCategories(res.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleStatus = async (e) => {
+    const text = e.target.textContent === "Active" ? false : true;
+    // console.log(text, e.target.value);
+    await axios
+      .put(
+        `http://localhost:4000/api/admin-panel/parent-category/update-status/${e.target.value}`,
+        { text }
+      )
+      .then((res) => {
+        // console.log(res);
+        if (res.status !== 200) return alert("Something isn't Ok.");
+        alert("Status updated Successfully.");
+        let updateCategories = [...categories];
+        let index = categories.findIndex((i) => i._id === e.target.value);
+        updateCategories[index].status = text;
+        setCategories(updateCategories);
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("Error Occurred.");
+      });
+  };
+  useEffect(() => {
+    handleCategoryDataFetchOp();
+  }, []);
   return (
     <div className="w-[90%] mx-auto my-[150px] bg-white rounded-[10px] border">
       <span className="block h-[40px] bg-[#f8f8f9] text-[20px] text-[#303640] p-[8px_16px] border-b rounded-[10px_10px_0_0]">
@@ -28,201 +66,54 @@ const ViewCategory = () => {
               </th>
               <th>Sno</th>
               <th>Category Name</th>
-              <th>Image</th>
               <th>Description</th>
               <th>Action</th>
               <th>Status</th>
             </tr>
           </thead>
           <tbody>
-            <tr className="border-b">
-              <td>
-                <input
-                  type="checkbox"
-                  name="delete"
-                  id="delete1"
-                  className="accent-[#5351c9] cursor-pointer"
-                />
-              </td>
-              <td>1</td>
-              <td>Men's T-shirt</td>
-              <td className="object-contain p-2">
-                <img
-                  src="/CollarPocketsT-shirt1.webp"
-                  alt="product men's t-shirt"
-                  width={80}
-                  height={80}
-                />
-              </td>
-              <td className="w-[200px] flex-wrap p-1">
-                {" "}
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.{" "}
-                <span
-                  onClick={() => setShow1(!show1)}
-                  className={
-                    show1 === true ? "hidden" : "font-bold cursor-pointer"
-                  }
-                >
-                  ...Read
-                </span>
-                {show1 === false ? (
-                  " "
-                ) : (
-                  <span>
-                    Deserunt nam est delectus itaque sint harum architecto.
-                  </span>
-                )}
-              </td>
-              <td>
-                <MdDelete className="my-[5px] text-red-500 cursor-pointer inline" />{" "}
-                |{" "}
-                <Link to="/dashboard/category/update-category">
-                  <CiEdit className="my-[5px] text-yellow-500 cursor-pointer inline" />
-                </Link>
-              </td>
-              <td>Display</td>
-            </tr>
-            <tr className="border-b">
-              <td>
-                <input
-                  type="checkbox"
-                  name="delete"
-                  id="delete1"
-                  className="accent-[#5351c9] cursor-pointer"
-                />
-              </td>
-              <td>2</td>
-              <td>Men's T-shirt</td>
-              <td className="object-contain p-2">
-                <img
-                  src="/CollarPocketsT-shirt1.webp"
-                  alt="product men's t-shirt"
-                  width={80}
-                  height={80}
-                />
-              </td>
-              <td className="w-[200px] flex-wrap p-1">
-                {" "}
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.{" "}
-                <span
-                  onClick={() => setShow2(!show2)}
-                  className={
-                    show2 === true ? "hidden" : "font-bold cursor-pointer"
-                  }
-                >
-                  ...Read
-                </span>
-                {show2 === false ? (
-                  " "
-                ) : (
-                  <span>
-                    Deserunt nam est delectus itaque sint harum architecto.
-                  </span>
-                )}
-              </td>
-              <td>
-                <MdDelete className="my-[5px] text-red-500 cursor-pointer inline" />{" "}
-                |{" "}
-                <Link to="/dashboard/category/update-category">
-                  <CiEdit className="my-[5px] text-yellow-500 cursor-pointer inline" />
-                </Link>
-              </td>
-              <td>Display</td>
-            </tr>
-            <tr className="border-b">
-              <td>
-                <input
-                  type="checkbox"
-                  name="delete"
-                  id="delete1"
-                  className="accent-[#5351c9] cursor-pointer"
-                />
-              </td>
-              <td>3</td>
-              <td>Men's T-shirt</td>
-              <td className="object-contain p-2">
-                <img
-                  src="/CollarPocketsT-shirt1.webp"
-                  alt="product men's t-shirt"
-                  width={80}
-                  height={80}
-                />
-              </td>
-              <td className="w-[200px] flex-wrap p-1">
-                {" "}
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.{" "}
-                <span
-                  onClick={() => setShow3(!show3)}
-                  className={
-                    show3 === true ? "hidden" : "font-bold cursor-pointer"
-                  }
-                >
-                  ...Read
-                </span>
-                {show3 === false ? (
-                  " "
-                ) : (
-                  <span>
-                    Deserunt nam est delectus itaque sint harum architecto.
-                  </span>
-                )}
-              </td>
-              <td>
-                <MdDelete className="my-[5px] text-red-500 cursor-pointer inline" />{" "}
-                |{" "}
-                <Link to="/dashboard/category/update-category">
-                  <CiEdit className="my-[5px] text-yellow-500 cursor-pointer inline" />
-                </Link>
-              </td>
-              <td>Display</td>
-            </tr>
-            <tr className="border-b">
-              <td>
-                <input
-                  type="checkbox"
-                  name="delete"
-                  id="delete1"
-                  className="accent-[#5351c9] cursor-pointer"
-                />
-              </td>
-              <td>4</td>
-              <td>Men's T-shirt</td>
-              <td className="object-contain p-2">
-                <img
-                  src="/CollarPocketsT-shirt1.webp"
-                  alt="product men's t-shirt"
-                  width={80}
-                  height={80}
-                />
-              </td>
-              <td className="w-[200px] flex-wrap p-1">
-                {" "}
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.{" "}
-                <span
-                  onClick={() => setShow4(!show4)}
-                  className={
-                    show4 === true ? "hidden" : "font-bold cursor-pointer"
-                  }
-                >
-                  ...Read
-                </span>
-                {show4 === false ? (
-                  " "
-                ) : (
-                  <span>
-                    Deserunt nam est delectus itaque sint harum architecto.
-                  </span>
-                )}
-              </td>
-              <td>
-                <MdDelete className="my-[5px] text-red-500 cursor-pointer inline" />{" "}
-                |{" "}
-                <Link to="/dashboard/category/update-category">
-                  <CiEdit className="my-[5px] text-yellow-500 cursor-pointer inline" />
-                </Link>
-              </td>
-              <td>Display</td>
-            </tr>
+            {categories.length > 0
+              ? categories.map((v, i) => {
+                  return (
+                    <tr className="border-b" key={i}>
+                      <td>
+                        <input
+                          type="checkbox"
+                          name="delete"
+                          id="delete1"
+                          className="accent-[#5351c9] cursor-pointer"
+                        />
+                      </td>
+                      <td>{i + 1}</td>
+                      <td>{v.name}</td>
+
+                      <td className="w-[200px] flex-wrap p-1">
+                        {v.description}
+                      </td>
+                      <td>
+                        <MdDelete className="my-[5px] text-red-500 cursor-pointer inline" />{" "}
+                        |{" "}
+                        <Link
+                          to={`/dashboard/category/update-category/${v._id}`}
+                        >
+                          <CiEdit className="my-[5px] text-yellow-500 cursor-pointer inline" />
+                        </Link>
+                      </td>
+                      <td>
+                        <button
+                          value={v._id}
+                          onClick={handleStatus}
+                          className={`p-[5px_10px] rounded-[5px] ${
+                            v.status ? `bg-green-500` : `bg-red-500`
+                          } text-white`}
+                        >
+                          {v.status ? "Active" : "Inactive"}
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })
+              : "No Categories Added."}
           </tbody>
         </table>
       </div>

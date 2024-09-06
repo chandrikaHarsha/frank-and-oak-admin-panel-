@@ -1,7 +1,10 @@
 import axios from "axios";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const AddCategory = () => {
+  const navigate = useNavigate();
+
   const handleParentCategory = async (e) => {
     e.preventDefault();
     let name = e.target.name.value;
@@ -21,6 +24,7 @@ const AddCategory = () => {
         console.log(res);
         if (res.status !== 200) return alert("Something is not OK");
         alert("inserted");
+        navigate("/dashboard/category/view-category");
       })
       .catch((error) => {
         console.log(error);
