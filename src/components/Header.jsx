@@ -24,9 +24,9 @@ function Header() {
   const navigate = useNavigate();
   const ifLoggedIn = () => {
     const check = Cookies.get("admin");
+    if (!check) return navigate("/login");
     const adminData = JSON.parse(check);
     // console.log("......", adminData);
-    if (!check) return navigate("/login");
     setCookieData(adminData[0]);
   };
 

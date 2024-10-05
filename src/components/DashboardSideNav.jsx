@@ -310,10 +310,9 @@ function DashboardSideNav() {
           <span className="w-full px-2">Terms & Conditions</span>
         </li>
       </ul>
-      <div className="flex justify-end border-up box-border footer">
+      <div className="flex justify-end border-up box-border footer bg-[#2a303d]">
         <Link to={"/login"}>
-          <span className="block p-[12px_0]">
-            {" "}
+          <span className="block p-[8px_0] box-border">
             <CiLogout className="text-[25px] text-[#ffffff6a] hover:text-[#ffffff9a] mx-[20px] cursor-pointer" />
           </span>
         </Link>

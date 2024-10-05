@@ -47,11 +47,18 @@ const routes = createBrowserRouter(
       <Route path="" element={<Home />} />
       <Route path="/dashboard/color/add-colors" element={<Color />} />
       <Route path="/dashboard/color/view-colors" element={<ViewColor />} />
-      <Route path="/dashboard/color/update-colors" element={<UpdateColor />} />
+      <Route
+        path="/dashboard/color/update-colors/:_id"
+        element={<UpdateColor />}
+      />
       <Route path="/dashboard/profile" element={<Profile />} />
       <Route path="/dashboard/size/add-sizes" element={<AddSizes />} />
       <Route path="/dashboard/size/view-sizes" element={<ViewSizes />} />
-      <Route path="/dashboard/sizes/update-size" element={<UpdateSizes />} />,
+      <Route
+        path="/dashboard/sizes/update-size/:_id"
+        element={<UpdateSizes />}
+      />
+      ,
       <Route
         path="/dashboard/category/add-category"
         element={<AddCategory />}
@@ -78,7 +85,7 @@ const routes = createBrowserRouter(
       />
       ,
       <Route
-        path="/dashboard/products/update-category"
+        path="/dashboard/products/update-category/:_id"
         element={<UpdatePCategory />}
       />
       ,
@@ -88,14 +95,14 @@ const routes = createBrowserRouter(
         element={<ViewProduct />}
       />
       <Route
-        path="/dashboard/products/update-product"
+        path="/dashboard/products/update-product/:_id"
         element={<UpdateProduct />}
       />
       ,
       <Route path="/dashboard/stories/add-story" element={<StoryDetails />} />,
       <Route path="/dashboard/stories/view-story" element={<ViewStory />} />,
       <Route
-        path="/dashboard/stories/update-stories"
+        path="/dashboard/stories/update-stories/:_id"
         element={<UpdateStories />}
       />
       ,

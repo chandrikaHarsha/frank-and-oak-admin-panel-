@@ -53,12 +53,13 @@ const AddSlider = () => {
               className="block text-[#303640]"
               onClick={(e) => e.preventDefault()}
             >
-              Sub Heading
+              Slider Images
             </label>
             <input
               type="file"
               id="slider_img"
               name="slider_img"
+              multiple
               className="w-full rounded-[10px] my-[10px] border input category"
             />
           </div>

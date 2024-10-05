@@ -17,6 +17,7 @@ body {
 .sideNav {
   overflow-y: scroll;
   height: 500px;
+  box-sizing: border-box;
 }
 .sideNav::-webkit-scrollbar {
   width: 8px;
@@ -56,6 +57,7 @@ input.category::file-selector-button {
   position: absolute;
   bottom: 0;
   height: 50px !important;
+  box-sizing: border-box;
   /* background-color: #555; */
 }
 input::-webkit-inner-spin-button,

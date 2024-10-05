@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { RiFacebookFill } from "react-icons/ri";
 import { CiInstagram } from "react-icons/ci";
 import { FaYoutube } from "react-icons/fa";
@@ -17,8 +17,8 @@ function Profile() {
   const [timer, setTimer] = useState("Generate OTP");
   let { cookieData, setCookieData } = useContext(NavToggle);
   const [imgPreview, setImgPreview] = useState({});
+  const [adminProfile, setAdminProfile] = useState({});
   let navigate = useNavigate();
-  // console.log(cookieData);
 
   // const handleAdminData = () => {
   //   console.log("profile", cookieData);
@@ -104,6 +104,19 @@ function Profile() {
   //     reader.readAsDataURL(e.target.files[0]);
   //   });
   // };
+
+  const fetchProfileData = async () => {
+    await axios
+      .get("http://localhost:4000/api/admin-panel/admin/read-profile")
+      .then((res) => {
+        if (res.status === 200) {
+          setAdminProfile(...res.data.data);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
     const data = e.target;
@@ -124,6 +137,10 @@ function Profile() {
         alert("Error");
       });
   };
+
+  useEffect(() => {
+    fetchProfileData();
+  }, []);
   return (
     <div>
       <div className="w-[90%] mx-auto mt-[140px] mb-[20px] bg-white border rounded-[10px]">
@@ -138,6 +155,10 @@ function Profile() {
                 <input
                   type="text"
                   name="name"
+                  value={adminProfile.name}
+                  onChange={(e) =>
+                    setAdminProfile({ ...adminProfile, name: e.target.value })
+                  }
                   className="w-full border h-[35px] rounded-[5px] p-2 input"
                 />
               </div>
@@ -150,6 +171,10 @@ function Profile() {
                   <input
                     type="text"
                     name="fb"
+                    value={adminProfile.fb}
+                    onChange={(e) =>
+                      setAdminProfile({ ...adminProfile, fb: e.target.value })
+                    }
                     className="w-full border h-[35px] rounded-[5px] p-2 input"
                   />
                 </div>
@@ -160,6 +185,13 @@ function Profile() {
                   <input
                     type="text"
                     name="instagram"
+                    value={adminProfile.instagram}
+                    onChange={(e) =>
+                      setAdminProfile({
+                        ...adminProfile,
+                        instagram: e.target.value,
+                      })
+                    }
                     className="w-full border h-[35px] rounded-[5px] p-2 input"
                   />
                 </div>
@@ -170,6 +202,13 @@ function Profile() {
                   <input
                     type="text"
                     name="LinkedIn"
+                    value={adminProfile.LinkedIn}
+                    onChange={(e) =>
+                      setAdminProfile({
+                        ...adminProfile,
+                        LinkedIn: e.target.value,
+                      })
+                    }
                     className="w-full border h-[35px] rounded-[5px] p-2 input"
                   />
                 </div>
@@ -180,6 +219,13 @@ function Profile() {
                   <input
                     type="text"
                     name="youtube"
+                    value={adminProfile.youtube}
+                    onChange={(e) =>
+                      setAdminProfile({
+                        ...adminProfile,
+                        youtube: e.target.value,
+                      })
+                    }
                     className="w-full border h-[35px] rounded-[5px] p-2 input"
                   />
                 </div>
@@ -190,6 +236,13 @@ function Profile() {
                   <input
                     type="text"
                     name="twitter"
+                    value={adminProfile.twitter}
+                    onChange={(e) =>
+                      setAdminProfile({
+                        ...adminProfile,
+                        twitter: e.target.value,
+                      })
+                    }
                     className="w-full border h-[35px] rounded-[5px] p-2 input"
                   />
                 </div>
@@ -200,6 +253,13 @@ function Profile() {
                   <input
                     type="text"
                     name="pinterest"
+                    value={adminProfile.pinterest}
+                    onChange={(e) =>
+                      setAdminProfile({
+                        ...adminProfile,
+                        pinterest: e.target.value,
+                      })
+                    }
                     className="w-full border h-[35px] rounded-[5px] p-2 input"
                   />
                 </div>
@@ -257,6 +317,7 @@ function Profile() {
                 <input
                   type={show === false ? "password" : "text"}
                   name="password"
+                  value={adminProfile.password}
                   onChange={(e) =>
                     setCookieData({ ...cookieData, password: e.target.value })
                   }
